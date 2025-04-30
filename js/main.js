@@ -63,6 +63,7 @@ function mostrarTotal() {
 //funcion de borrar un objeto
 function borrar(index) {
     gastos.splice(index, 1)
+    localStorage.setItem("gastos", JSON.stringify(gastos));
     mostrarProd()
     mostrarTotal()
 }
