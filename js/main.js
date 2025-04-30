@@ -1,5 +1,5 @@
 //variables generales
-const gastos = []
+const gastos = JSON.parse(localStorage.getItem("gastos")) || [];
 const agregarGastos = document.querySelector("#agregarGastoBtn")
 const listaGatos = document.querySelector("#gastoLista")
 const descInt = document.querySelector("#descInput")
@@ -14,6 +14,7 @@ agregarGastos.addEventListener("click", () => {
 
     if (desc.length >= 3 && !isNaN(monto) && !Number(desc)) {
         gastos.push({ desc: desc, monto })
+        localStorage.setItem("gastos", JSON.stringify(gastos));
         mostrarProd()
         mostrarTotal()
 
