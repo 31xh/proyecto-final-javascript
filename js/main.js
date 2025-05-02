@@ -27,7 +27,7 @@ agregarGastos.addEventListener("click", () => {
 })
 
 //funcion de mostrar un error
-function mostrarError() {
+const mostrarError = () => {
     error.innerHTML = `<h2 class="text-center text-danger display-2">Valor no valido</h2>`
 }
 
@@ -46,7 +46,7 @@ function mostrarProd() {
 }
 
 //funcion de borrar un total
-function mostrarTotal() {
+const mostrarTotal = () => {
     let acumulador = 0
     gastos.forEach(p =>
         acumulador += p.monto
@@ -61,7 +61,7 @@ function mostrarTotal() {
 }
 
 //funcion de borrar un objeto
-function borrar(index) {
+const borrar = (index) => {
     gastos.splice(index, 1)
     localStorage.setItem("gastos", JSON.stringify(gastos));
     mostrarProd()
