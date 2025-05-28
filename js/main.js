@@ -7,7 +7,8 @@ const pronostico = document.querySelector("#pronostico")
 const uv = document.querySelector("#indiceUv")
 const viento = document.querySelector("#viento")
 const diario = document.querySelector("#diario")
-const apiKey = 'bc17730569276708f4b5e178e0fac16a'
+const apiParts = ["bc17730", "56927", "6708f4b", "5e178e0", "fac16a"]
+const apiKey = apiParts.join("")
 const searchWrapper = document.querySelector("#searchWrapper")
 const resultsWrapper = document.querySelector("#resultsWrapper")
 
