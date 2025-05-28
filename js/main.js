@@ -1,4 +1,3 @@
-const ciudadesFavoritas = []
 const nombreCiudad = document.querySelector("#nombreCiudad")
 const contenedor = document.querySelector("#contenedor")
 const borderUv = document.querySelector("#borderUv")
@@ -43,6 +42,14 @@ const searchCountries = (searchText) => {
                         const lat = suggestion.dataset.lat;
                         const lon = suggestion.dataset.lon;
                         const cityName = suggestion.querySelector('.city-name').textContent;
+                        
+                        // Guardar la ciudad en localStorage
+                        const cityData = {
+                            name: cityName,
+                            lat: lat,
+                            lon: lon
+                        };
+                        localStorage.setItem('lastCity', JSON.stringify(cityData));
                         
                         buscar.value = cityName;
                         nombreCiudad.innerText = cityName;
@@ -263,4 +270,13 @@ const barraUv = (uv) => {
     }
 }
 
-getApi()
+// Cargar la última ciudad buscada si existe
+const lastCity = localStorage.getItem('lastCity');
+if (lastCity) {
+    const cityData = JSON.parse(lastCity);
+    nombreCiudad.innerText = cityData.name;
+    buscar.value = cityData.name;
+    getApi(cityData.lat, cityData.lon);
+} else {
+    getApi(); // Usar las coordenadas por defecto si no hay ciudad guardada
+}
