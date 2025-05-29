@@ -256,6 +256,7 @@ const background = (i, weather) => {
     if (backgroundImage) {
         document.body.style.backgroundImage = backgroundImage;
     } else {
+        document.body.style.backgroundImage = "url(./images/backgroundDia.png)";
         console.log("No se pudo cambiar el bg - Clima:", weather);
     }
 }
