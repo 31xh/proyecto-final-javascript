@@ -151,7 +151,7 @@ const mostrarClimaHora = (current) => {
     diario.innerHTML = valor
 }
 
-const mostrarDetalles = (current, daily, pais) => {
+const mostrarDetalles = (current, daily) => {
     const icono = current.weather[0].icon
     const descripcion = current.weather[0].description
     const temp = Math.round(current.temp)
@@ -218,16 +218,20 @@ const mostrarDetalles = (current, daily, pais) => {
 
 const background = (i, weather) => {
     //console.log(`Hora: ${i} clima: ${weather}`)
-    if ((i >= 8 || i < 17) && weather === "clear") {
+    if (i >= 8 && i < 17 && weather === "clear") {
         document.body.style.backgroundImage = "url(./images/backgroundDia.png)"
-    } else if ((i >= 18 || i < 7) && weather === "clear") {
+    } else if ((i >= 18 || i < 8) && weather === "clear") {
         document.body.style.backgroundImage = "url(./images/backgroundNoche.png)"
-    } else if (i >= 8 || i < 17 && weather === "clouds") {
+    } else if (i >= 8 && i < 17 && weather === "clouds") {
         document.body.style.backgroundImage = "url(./images/backgroundNuboso.png)"
-    } else if ((i >= 18 || i < 7) && weather === "clouds") {
+    } else if ((i >= 18 || i < 8) && weather === "clouds") {
         document.body.style.backgroundImage = "url(./images/backgroundNocheNuboso.png)"
+    } else if (i >= 8 && i < 17 && weather === "rain") {
+        document.body.style.backgroundImage = "url(./images/backgroundDiaLluvia.png)"
+    } else if ((i >= 18 || i < 8) && weather === "rain") {
+        document.body.style.backgroundImage = "url(./images/backgroundNocheLluvia.png)"
     } else {
-        console.log("No se pudo cambiar el bg")
+        console.log("No se pudo cambiar el bg - Clima:", weather)
     }
 }
 
