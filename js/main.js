@@ -44,7 +44,7 @@ const searchCountries = (searchText) => {
                         const lon = suggestion.dataset.lon;
                         const cityName = suggestion.querySelector('.city-name').textContent;
                         
-                        // Guardar la ciudad en localStorage
+                        
                         const cityData = {
                             name: cityName,
                             lat: lat,
@@ -217,21 +217,46 @@ const mostrarDetalles = (current, daily) => {
 }
 
 const background = (i, weather) => {
-    //console.log(`Hora: ${i} clima: ${weather}`)
-    if (i >= 8 && i < 17 && weather === "clear") {
-        document.body.style.backgroundImage = "url(./images/backgroundDia.png)"
-    } else if ((i >= 18 || i < 8) && weather === "clear") {
-        document.body.style.backgroundImage = "url(./images/backgroundNoche.png)"
-    } else if (i >= 8 && i < 17 && weather === "clouds") {
-        document.body.style.backgroundImage = "url(./images/backgroundNuboso.png)"
-    } else if ((i >= 18 || i < 8) && weather === "clouds") {
-        document.body.style.backgroundImage = "url(./images/backgroundNocheNuboso.png)"
-    } else if (i >= 8 && i < 17 && weather === "rain") {
-        document.body.style.backgroundImage = "url(./images/backgroundDiaLluvia.png)"
-    } else if ((i >= 18 || i < 8) && weather === "rain") {
-        document.body.style.backgroundImage = "url(./images/backgroundNocheLluvia.png)"
+    const isDaytime = i >= 8 && i < 17;
+    
+    const backgroundMap = {
+        clear: {
+            day: "url(./images/backgroundDia.png)",
+            night: "url(./images/backgroundNoche.png)"
+        },
+        clouds: {
+            day: "url(./images/backgroundNuboso.png)",
+            night: "url(./images/backgroundNocheNuboso.png)"
+        },
+        rain: {
+            day: "url(./images/backgroundDiaLluvia.png)",
+            night: "url(./images/backgroundNocheLluvia.png)"
+        },
+        snow: {
+            day: "url(./images/backgroundDiaNieve.png)",
+            night: "url(./images/backgroundNocheNieve.png)"
+        },
+        drizzle: {
+            day: "url(./images/backgroundDiaLluvia.png)",
+            night: "url(./images/backgroundNocheLluvia.png)"
+        },
+        thunderstorm: {
+            day: "url(./images/backgroundDiaThunder.png)",
+            night: "url(./images/backgroundNocheThunder.png)"
+        },
+        sand: {
+            day: "url(./images/backgroundDiaArena.png)",
+            night: "url(./images/backgroundNoche.png)"
+        }
+    };
+
+    const timeOfDay = isDaytime ? 'day' : 'night';
+    const backgroundImage = backgroundMap[weather]?.[timeOfDay];
+
+    if (backgroundImage) {
+        document.body.style.backgroundImage = backgroundImage;
     } else {
-        console.log("No se pudo cambiar el bg - Clima:", weather)
+        console.log("No se pudo cambiar el bg - Clima:", weather);
     }
 }
 
@@ -275,7 +300,6 @@ const barraUv = (uv) => {
     }
 }
 
-// Cargar la última ciudad buscada si existe
 const lastCity = localStorage.getItem('lastCity');
 if (lastCity) {
     const cityData = JSON.parse(lastCity);
@@ -283,5 +307,5 @@ if (lastCity) {
     buscar.value = cityData.name;
     getApi(cityData.lat, cityData.lon);
 } else {
-    getApi(); // Usar las coordenadas por defecto si no hay ciudad guardada
+    getApi();
 }
